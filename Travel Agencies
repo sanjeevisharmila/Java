@@ -1,0 +1,86 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args)
+    {
+           Scanner s=new Scanner(System.in);
+           TravelAgencies[] arr=new TravelAgencies[4];
+           for(int i=0;i<4;i++)
+           {
+               int rno=s.nextInt(); s.nextLine();
+               String aname=s.nextLine();
+               String ptype=s.nextLine();
+               int p=s.nextInt();s.nextLine();
+               boolean f=s.nextBoolean();s.nextLine();
+               arr[i]=new TravelAgencies(rno,aname,ptype,p,f);
+           }
+           int regNo=s.nextInt();s.nextLine();
+           String packageType=s.nextLine();
+           int max=findAgencyWithHighestPackagePrice(arr);
+           System.out.println(max);
+           TravelAgencies result=agencyDetailsforGivenIdAndType(arr, regNo,packageType);
+           System.out.println(result.getAgencyname()+":"+result.getPrice());
+    }
+    public static int findAgencyWithHighestPackagePrice(TravelAgencies[] arr)
+    {
+        int max=arr[0].getPrice();
+        for(int i=1;i<arr.length;i++)
+        {
+            if(max<arr[i].getPrice())
+            {
+                max=arr[i].getPrice();
+            }
+        }
+        if(max<0)
+        {
+            return 0;
+        }
+        else{
+            return max;
+        }
+    }
+    public static TravelAgencies agencyDetailsforGivenIdAndType(TravelAgencies[] arr,int regno,String packagtype)
+    {
+        for(int i=0;i<arr.length;i++)
+        {
+            if(arr[i].getFlightfacility()==true)
+            {
+                if(arr[i].getRegno()==regno && arr[i].getPackagetype().equals(packagtype))
+                {
+                       return arr[i];
+                }
+            }
+        }
+        return null;
+    }
+}
+class TravelAgencies{
+    int regno;
+    String agencyname;
+    String packagtype;
+    int price;
+    boolean flightfacility;
+
+    public TravelAgencies(int regno,String agencyname,String packagtype,int price,boolean flightfacility)
+    {
+        this.regno=regno;
+        this.agencyname=agencyname;
+        this.packagtype=packagtype;
+        this.price=price;
+        this.flightfacility=flightfacility;
+    }
+    public int getRegno(){
+        return regno;
+    }
+    public String getAgencyname(){
+        return agencyname;
+    }
+    public String getPackagetype(){
+        return packagtype;
+    }
+    public int getPrice(){
+        return price;
+    }
+    public boolean getFlightfacility(){
+        return flightfacility;
+    }
+}
