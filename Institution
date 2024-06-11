@@ -1,0 +1,137 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[])
+    {
+        Scanner s=new Scanner(System.in);
+        institution[] arr=new institution[4];
+        for(int i=0;i<4;i++)
+        {
+            int a=s.nextInt(); s.nextLine();
+            String b=s.nextLine();
+            int c=s.nextInt(); s.nextLine();
+            int d=s.nextInt(); s.nextLine();
+            String e=s.nextLine();
+            String f=s.nextLine();
+            arr[i]=new institution(a,b,c,d,e,f);
+        }
+        String Location=s.nextLine();
+        String Name=s.nextLine();
+        int res1=numclearedbylocation(arr, Location);
+        if(res1>0)
+        {
+            System.out.println(res1);
+        }
+        else
+        {
+             System.out.println("there are no cleared students");
+        }
+        institution res2=updateinstitutegrade(arr,Name);
+            if(res2==null)
+            {
+                System.out.println("No institute is available");
+            }
+            else
+            {
+                System.out.println(res2.getname()+"::"+res2.getgrade());
+            }
+    }
+        public static int numclearedbylocation(institution[] arr, String Location)
+        {
+            int sum=0;
+            for(int i=0;i<arr.length;i++)
+            {
+              if(arr[i].getlocation().equals(Location))
+              {
+                  sum=sum+arr[i].getnostudentscleared();
+              }
+            }
+            return sum;
+        }
+       public static institution updateinstitutegrade(institution[] arr,String Name)
+       {
+           for(int i=0;i<arr.length;i++)
+           {
+               if(arr[i].getname().equals(Name))
+               {
+                   int gt=(arr[i].getnostudentsplaced()*100)/(arr[i]. getnostudentscleared());
+                   if(gt>=80)
+                   {
+                        arr[i].setgrade("A");
+                   }
+                   else
+                   {
+                       arr[i].setgrade("B");
+                   }
+                   return arr[i];
+               }
+           }
+           return null;
+       }
+}
+
+class institution{
+    int id;
+    String name;
+    int nostudentsplaced;
+    int nostudentscleared;
+    String location;
+    String grade;
+    
+    public institution(int id,String name, int nostudentsplaced,int nostudentscleared,String location,String grade)
+    {
+        this.id=id;
+        this.name=name;
+        this.nostudentsplaced= nostudentsplaced;
+        this.nostudentscleared=nostudentscleared;
+        this.location=location;
+        this.grade=grade;
+    }
+    public int getid()
+    {
+        return id;
+    }
+    public String getname()
+    {
+        return name;
+    }
+    public int getnostudentsplaced()
+    {
+        return nostudentsplaced;
+    }
+    public int getnostudentscleared()
+    {
+        return nostudentscleared;
+    }
+    public String getlocation()
+    {
+        return location;
+    }
+     public String getgrade()
+    {
+        return grade;
+    }
+    public void setid(int id)
+    {
+        this.id=id;
+    }
+    public void setname(String name)
+    {
+        this.name=name;
+    }
+    public void setnostudentsplaced(int nostudentsplaced)
+    {
+        this.nostudentsplaced=nostudentsplaced;
+    }
+    public void setnostudentscleared(int nostudentscleared)
+    {
+        this.nostudentscleared=nostudentscleared;
+    }
+    public void setlocation(String location)
+    {
+        this.location=location;
+    }
+    public void setgrade(String grade)
+    {
+        this.grade=grade;
+    }
+}
